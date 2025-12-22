@@ -1,0 +1,1309 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>مؤشر القبول العسكري الذكي | استفسارات وزارة الدفاع</title>
+
+  <!-- PDF -->
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root{
+      --bg0:#050814;
+      --bg1:#081024;
+      --bg2:#0b1731;
+
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.04);
+      --line: rgba(255,255,255,.11);
+      --line2: rgba(255,255,255,.16);
+
+      --ink:#eef2ff;
+      --muted: rgba(238,242,255,.72);
+
+      --brand:#7dd3fc;
+      --brand2:#60a5fa;
+
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.46);
+      --shadow2: 0 10px 30px rgba(0,0,0,.40);
+
+      --r: 22px;
+      --r2: 16px;
+
+      --tap: 46px; /* mobile-friendly tap size */
+      --max: 1220px;
+
+      /* pdf colors */
+      --pdfBg:#ffffff;
+      --pdfInk:#0f172a;
+      --pdfMuted:#475569;
+      --pdfLine:#e2e8f0;
+      --pdfBrand:#2563eb;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(1100px 700px at 78% 14%, rgba(125,211,252,.14), transparent 60%),
+        radial-gradient(900px 700px at 18% 22%, rgba(34,197,94,.10), transparent 58%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 100%);
+      padding:
+        calc(18px + env(safe-area-inset-top))
+        calc(16px + env(safe-area-inset-right))
+        calc(20px + env(safe-area-inset-bottom))
+        calc(16px + env(safe-area-inset-left));
+    }
+
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width:var(--max);margin:0 auto}
+    .glass{
+      background: linear-gradient(135deg, rgba(125,211,252,.10), rgba(34,197,94,.06));
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .glass:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(650px 260px at 70% 10%, rgba(255,255,255,.14), transparent 58%);
+      pointer-events:none;
+    }
+
+    header{
+      padding: 18px 18px 14px;
+      position:relative;
+    }
+
+    .topRow{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    }
+
+    .brandTitle{
+      margin:0;
+      font-size: clamp(18px, 2.6vw, 26px);
+      font-weight: 1000;
+      letter-spacing:.2px;
+      line-height:1.2;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      color: rgba(238,242,255,.86);
+      font-weight: 800;
+      font-size: clamp(12px, 1.4vw, 14px);
+      line-height:1.85;
+      max-width: 980px;
+    }
+
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line2);
+      background: rgba(0,0,0,.20);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 1000;
+      white-space:nowrap;
+      box-shadow: var(--shadow2);
+    }
+    .dot{width:9px;height:9px;border-radius:999px;background:var(--brand2)}
+
+    .notice{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.16);
+      color: rgba(238,242,255,.86);
+      font-size: 12px;
+      font-weight: 850;
+      line-height:1.8;
+      position:relative;
+      z-index:1;
+    }
+
+    main{
+      position:relative; z-index:1;
+      padding: 14px 14px 16px;
+    }
+
+    /* responsive layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      main{padding: 12px 12px 14px}
+      header{padding: 16px 14px 12px}
+    }
+
+    .panel{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow2);
+      padding: 14px;
+      backdrop-filter: blur(10px);
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size: 13px;
+      font-weight: 1000;
+      color: rgba(238,242,255,.90);
+      letter-spacing:.2px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .row3{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px){
+      .row{grid-template-columns:1fr}
+      .row3{grid-template-columns:1fr}
+    }
+
+    label{
+      display:block;
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 1000;
+      color: rgba(238,242,255,.92);
+    }
+    .hint{
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    input, select, textarea, button{
+      width: 100%;
+      margin-top: 7px;
+      min-height: var(--tap);
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 950;
+      padding: 12px 12px;
+      outline: none;
+    }
+    textarea{min-height: 100px; resize: vertical;}
+    input::placeholder{color: rgba(238,242,255,.40); font-weight: 800;}
+
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(125,211,252,.75);
+      box-shadow: 0 0 0 4px rgba(125,211,252,.16);
+    }
+
+    /* ✅ حل مشكلة خيارات select (iOS/Android) */
+    select{
+      color-scheme: dark;
+      background-color: rgba(0,0,0,.18);
+      -webkit-appearance: none;
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(238,242,255,.70) 50%),
+        linear-gradient(135deg, rgba(238,242,255,.70) 50%, transparent 50%);
+      background-position:
+        calc(14px) calc(50% - 2px),
+        calc(8px) calc(50% - 2px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-left: 34px;
+    }
+    option, optgroup{
+      background-color: #0b1220;
+      color: var(--ink);
+    }
+    optgroup{font-weight:1000}
+
+    .btnRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width:720px){
+      .btnRow{grid-template-columns:1fr}
+    }
+
+    button{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(125,211,252,.20), rgba(34,197,94,.08));
+      font-weight: 1000;
+    }
+    button:hover{filter: brightness(1.06)}
+    button:disabled{opacity:.55; cursor:not-allowed}
+    .btnSecondary{
+      background: rgba(255,255,255,.06);
+    }
+
+    .meter{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.16);
+      border-radius: 18px;
+      padding: 12px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .score{
+      font-size: 26px;
+      font-weight: 1000;
+      white-space:nowrap;
+      letter-spacing:.3px;
+    }
+    .bar{
+      flex:1;
+      height: 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(239,68,68,.95), rgba(245,158,11,.95), rgba(34,197,94,.95));
+      transition: width .35s ease;
+    }
+
+    .kpis{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width:980px){
+      .kpis{grid-template-columns:1fr}
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+      border-radius: 18px;
+      padding: 12px;
+    }
+    .kpi .t{font-size:12px;color:var(--muted);font-weight:900}
+    .kpi .v{font-size:20px;font-weight:1000;margin-top:6px;line-height:1.25}
+
+    .chips{
+      display:flex;flex-wrap:wrap;gap:8px;margin-top:10px
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 1000;
+      color: rgba(238,242,255,.92);
+    }
+    .chip .cDot{width:9px;height:9px;border-radius:999px}
+    .chip.good{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.10)}
+    .chip.warn{border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10)}
+    .chip.bad{border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.10)}
+    .chip.info{border-color: rgba(125,211,252,.35); background: rgba(125,211,252,.10)}
+
+    .box{
+      margin-top: 12px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+      border-radius: 18px;
+      padding: 12px;
+    }
+    .box h4{
+      margin:0 0 8px;
+      font-size: 13px;
+      font-weight: 1000;
+      color: rgba(238,242,255,.92);
+    }
+    ul{margin:0; padding: 0 18px 0 0}
+    li{
+      margin: 6px 0;
+      line-height: 1.75;
+      font-weight: 850;
+      color: rgba(238,242,255,.88);
+    }
+    .mutedText{color: var(--muted); font-weight: 850}
+    .tiny{font-size:12px}
+
+    .footerLinks{
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255,255,255,.14);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.85;
+    }
+
+    /* ===== PDF: حل جذري =====
+      مهم: لا نستخدم display:none لأن html2canvas في بعض الأجهزة (خصوصًا iOS) يرجع صفحة فاضية أو مقصوصة.
+      نخليه "مخفي بصريًا" offscreen لكن موجود ومرئي للرندر.
+    */
+    .pdfStage{
+      position: fixed;
+      left: -99999px;
+      top: 0;
+      width: 794px; /* قريب من A4 بالـ px عند 96dpi */
+      background: var(--pdfBg);
+      color: var(--pdfInk);
+      padding: 26px;
+      border: 1px solid var(--pdfLine);
+      border-radius: 12px;
+      box-shadow: none;
+      z-index: -1;
+      opacity: 1;
+      visibility: visible;
+      font-family: "Tahoma", "Arial", system-ui;
+    }
+    .pdfHeader{
+      display:flex; justify-content:space-between; align-items:flex-start; gap: 12px; flex-wrap:wrap;
+    }
+    .pdfH1{
+      margin:0;
+      font-size: 18px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.3;
+    }
+    .pdfMeta{
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 750;
+      color: var(--pdfMuted);
+      line-height: 1.7;
+    }
+    .pdfBadge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 8px 10px;
+      border:1px solid var(--pdfLine);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      color:#0f172a;
+      background: #f8fafc;
+      white-space:nowrap;
+    }
+    .pdfHr{height:1px;background: var(--pdfLine); margin: 12px 0}
+    .pdfKpis{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .pdfKpi{
+      border:1px solid var(--pdfLine);
+      border-radius: 12px;
+      padding: 10px;
+      background: #fff;
+    }
+    .pdfKpi .t{font-size:11px;font-weight:800;color: var(--pdfMuted)}
+    .pdfKpi .v{font-size:16px;font-weight:900;margin-top:6px;color:#0f172a}
+    .pdfSec{margin-top: 12px}
+    .pdfSecTitle{
+      margin:0 0 6px;
+      font-size: 13px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .pdfList{margin:0; padding: 0 18px 0 0}
+    .pdfList li{
+      color:#0f172a;
+      font-weight: 750;
+      line-height: 1.65;
+      margin: 5px 0;
+    }
+    .pdfNote{
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--pdfLine);
+      font-size: 11px;
+      color: var(--pdfMuted);
+      font-weight: 750;
+      line-height: 1.7;
+    }
+
+    /* reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce){
+      .fill{transition:none}
+      button:hover{filter:none}
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="glass">
+    <header>
+      <div class="topRow">
+        <div>
+          <h1 class="brandTitle">مؤشر القبول العسكري الذكي</h1>
+          <p class="subtitle">
+            تحليل عميق لنقاط القوة والضعف + اقتراحات تحسين عملية + تقرير PDF واضح.
+            <br>
+            تابع لحساب: <a href="https://x.com/tasjil25" target="_blank" rel="noopener">x.com/tasjil25</a>
+          </p>
+        </div>
+
+        <div class="pill">
+          <span class="dot"></span>
+          موقع توعوي — غير تابع لأي جهة رسمية
+        </div>
+      </div>
+
+      <div class="notice">
+        <b>تنويه:</b> هذا الموقع للتوعية فقط. القبول الفعلي يعتمد على شروط كل إعلان رسمي والمنافسة وقت التقديم.
+      </div>
+    </header>
+
+    <main>
+      <div class="grid">
+        <!-- FORM -->
+        <section class="panel">
+          <h3>بيانات المتقدم</h3>
+
+          <div class="row">
+            <div>
+              <label>الجنس</label>
+              <select id="gender">
+                <option value="M" selected>ذكر</option>
+                <option value="F">أنثى</option>
+              </select>
+              <div class="hint">سيتم فلترة الرغبات تلقائيًا حسب الجنس لتقليل الأخطاء.</div>
+            </div>
+
+            <div>
+              <label>سنة التخرج (هجري)</label>
+              <input id="gradYear" type="number" min="1390" max="1500" value="1447" />
+              <div class="hint">في سنة 1447: إذا سنة التخرج ≤ 1441 تعتبر “أكثر من 5 سنوات” وقد تقل فرصك في قطاعات كثيرة.</div>
+            </div>
+
+            <div>
+              <label>المعدل (من 100)</label>
+              <input id="gpa" type="number" min="0" max="100" step="0.01" placeholder="مثال: 82.50" />
+              <div class="hint">أقل من 75: ضعيف — 75 إلى 84: متوسط — 85+: قوي.</div>
+            </div>
+
+            <div>
+              <label>درجة القدرات</label>
+              <input id="qudrat" type="number" min="0" max="100" placeholder="مثال: 68" />
+              <div class="hint">أقل من 60: ضعيف — 60-64: مقبول — 65-74: جيد — 75+: ممتاز.</div>
+            </div>
+
+            <div>
+              <label>درجة التحصيلي</label>
+              <input id="tahsili" type="number" min="0" max="100" placeholder="مثال: 70" />
+              <div class="hint">أقل من 60: ضعيف — 60-64: مقبول — 65-74: جيد — 75+: ممتاز.</div>
+            </div>
+
+            <div>
+              <label>درجة STEP (اختياري)</label>
+              <input id="step" type="number" min="0" max="100" placeholder="مثال: 78" />
+              <div class="hint">وجود STEP بدرجة قوية يعطي دفعة تنافسية خصوصًا للأعمال المكتبية واللغات.</div>
+            </div>
+
+            <div>
+              <label>هل لديك دورات معتمدة؟</label>
+              <select id="hasCourses">
+                <option value="no" selected>لا</option>
+                <option value="yes">نعم</option>
+              </select>
+              <div class="hint">أفضل الدورات عادة: إدخال بيانات + Excel + إدارة مكتبية + حاسب آلي.</div>
+            </div>
+
+            <div>
+              <label>هل لديك مؤهل أعلى من الثانوية؟</label>
+              <select id="hasHigher">
+                <option value="no" selected>لا</option>
+                <option value="yes">نعم</option>
+              </select>
+              <div class="hint">وجود مؤهل أعلى قد يزيد قوة الملف إذا كان ضمن شروط الإعلان.</div>
+            </div>
+          </div>
+
+          <div style="height:8px"></div>
+          <h3>اختيار الرغبات (3 رغبات)</h3>
+
+          <div class="row3">
+            <div>
+              <label>الرغبة الأولى</label>
+              <select id="wish1"></select>
+              <div class="hint">سيتم بناء أغلب التوصيات بناءً على الرغبة الأولى.</div>
+            </div>
+            <div>
+              <label>الرغبة الثانية</label>
+              <select id="wish2"></select>
+            </div>
+            <div>
+              <label>الرغبة الثالثة</label>
+              <select id="wish3"></select>
+            </div>
+          </div>
+
+          <div class="btnRow">
+            <button id="analyzeBtn">عرض التحليل العميق</button>
+            <button id="pdfBtn" class="btnSecondary" disabled>تحميل التقرير PDF</button>
+          </div>
+
+          <div class="btnRow" style="margin-top:10px">
+            <button id="copyReportBtn" class="btnSecondary" disabled>نسخ التقرير كنص</button>
+            <button id="copyPlanBtn" class="btnSecondary" disabled>نسخ خطة تحسين 30 يوم</button>
+          </div>
+
+          <div class="btnRow" style="margin-top:10px">
+            <button id="demoBtn" class="btnSecondary">تجربة مثال</button>
+            <button id="resetBtn" class="btnSecondary">مسح البيانات</button>
+          </div>
+
+          <div class="footerLinks">
+            روابط مفيدة:
+            <br>• قياس (قدرات/تحصيلي): <a href="https://etec.gov.sa/ar/centers/qiyas/p/p-7d1870ff-a881-4e9a-9f9d-8f2a2c4df032" target="_blank" rel="noopener">etec.gov.sa</a>
+            <br>• حساب X: <a href="https://x.com/tasjil25" target="_blank" rel="noopener">x.com/tasjil25</a>
+          </div>
+        </section>
+
+        <!-- RESULTS -->
+        <section class="panel">
+          <h3>النتيجة + تفكيك الأسباب</h3>
+
+          <div class="meter">
+            <div class="score" id="scoreText">— / 100</div>
+            <div class="bar"><div class="fill" id="scoreFill"></div></div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi">
+              <div class="t">التقييم العام</div>
+              <div class="v" id="tierText">—</div>
+            </div>
+            <div class="kpi">
+              <div class="t">أقوى عامل داعم</div>
+              <div class="v" id="bestFactor">—</div>
+            </div>
+            <div class="kpi">
+              <div class="t">أكبر نقطة ضعف</div>
+              <div class="v" id="worstFactor">—</div>
+            </div>
+          </div>
+
+          <div class="chips" id="chips"></div>
+
+          <div class="box" id="summaryBox">
+            <h4>ملخص رسمي مختصر</h4>
+            <div class="mutedText">اكتب البيانات ثم اضغط “عرض التحليل العميق”.</div>
+          </div>
+
+          <div class="box">
+            <h4>لماذا ارتفعت/انخفضت النسبة؟ (تفصيل بالأرقام)</h4>
+            <ul id="reasonList"><li class="mutedText">—</li></ul>
+          </div>
+
+          <div class="box">
+            <h4>نقاط ضعف حرجة</h4>
+            <ul id="weakList"><li class="mutedText">—</li></ul>
+          </div>
+
+          <div class="box">
+            <h4>حلول وتحسينات قوية (حسب حالتك)</h4>
+            <ul id="actionList"><li class="mutedText">—</li></ul>
+          </div>
+
+          <div class="box">
+            <h4>تحليل حسب الرغبات</h4>
+            <ul id="sectorList"><li class="mutedText">—</li></ul>
+            <div class="mutedText tiny" style="margin-top:8px">
+              ملاحظة: التقييم تقديري للتوعية فقط. القبول الفعلي يعتمد على شروط كل إعلان رسمي والمنافسة وقت التقديم.
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- PDF Stage (Offscreen but renderable) -->
+<div id="pdfStage" class="pdfStage" aria-hidden="true"></div>
+
+<script>
+  // ===== ثوابت =====
+  const NOW_HIJRI = 1447;
+  const MAX_YEARS = 5;
+  const MIN_OK_YEAR = NOW_HIJRI - MAX_YEARS; // 1442 (=> 1441 وتحت: قديم)
+
+  const SECTORS = [
+    // وزارة الدفاع (رجال)
+    { id:"MOD_LAND_M", group:"وزارة الدفاع (رجال)", label:"القوات البرية (رجال)", gender:"M", cap:0.72, note:"عادةً عدد مقاعد أكبر مقارنة بغيرها." },
+    { id:"MOD_AIR_M",  group:"وزارة الدفاع (رجال)", label:"القوات الجوية (رجال)", gender:"M", cap:0.55, note:"منافسة أعلى من البرية غالبًا." },
+    { id:"MOD_NAVY_M", group:"وزارة الدفاع (رجال)", label:"القوات البحرية (رجال)", gender:"M", cap:0.50, note:"فرص جيدة حسب المناطق." },
+    { id:"MOD_ADF_M",  group:"وزارة الدفاع (رجال)", label:"الدفاع الجوي (رجال)", gender:"M", cap:0.48, note:"منافسة قوية عادةً." },
+
+    // وزارة الدفاع (نسائي)
+    { id:"MOD_MP_LAND_F", group:"وزارة الدفاع (نسائي)", label:"شرطة عسكرية (برية) (نسائي)", gender:"F", cap:0.42, note:"أعمال تنظيم/مساندة غالبًا." },
+    { id:"MOD_MP_AIR_F",  group:"وزارة الدفاع (نسائي)", label:"شرطة عسكرية (جوية) (نسائي)", gender:"F", cap:0.40, note:"منافسة أعلى قليلًا." },
+    { id:"MOD_MP_NAVY_F", group:"وزارة الدفاع (نسائي)", label:"شرطة عسكرية (بحرية) (نسائي)", gender:"F", cap:0.38, note:"حسب الشواغر." },
+    { id:"MOD_MP_ADF_F",  group:"وزارة الدفاع (نسائي)", label:"شرطة عسكرية (دفاع جوي) (نسائي)", gender:"F", cap:0.38, note:"حسب الشواغر." },
+    { id:"MOD_WAREHOUSE_F", group:"وزارة الدفاع (نسائي)", label:"فني/مستودعات (نسائي)", gender:"F", cap:0.45, note:"يفيد: إدخال بيانات/Excel/إدارة مكتبية." },
+
+    // وزارة الداخلية (رجال)
+    { id:"MOI_PSP_M", group:"وزارة الداخلية (رجال)", label:"الأمن العام (رجال)", gender:"M", cap:0.58, note:"منافسة قوية لكن فرص متكررة." },
+    { id:"MOI_GDP_M", group:"وزارة الداخلية (رجال)", label:"الجوازات (رجال)", gender:"M", cap:0.50, note:"متوسط إلى عالي حسب الدفعات." },
+    { id:"MOI_NARC_M",group:"وزارة الداخلية (رجال)", label:"مكافحة المخدرات (رجال)", gender:"M", cap:0.45, note:"منافسة عالية." },
+    { id:"MOI_BG_M",  group:"وزارة الداخلية (رجال)", label:"حرس الحدود (رجال)", gender:"M", cap:0.46, note:"حسب المناطق." },
+    { id:"MOI_ENV_M", group:"وزارة الداخلية (رجال)", label:"القوات الخاصة للأمن البيئي (رجال)", gender:"M", cap:0.44, note:"منافسة ملحوظة." },
+    { id:"MOI_GIP_M", group:"وزارة الداخلية (رجال)", label:"المباحث العامة (رجال)", gender:"M", cap:0.30, note:"انتقائية ومنافسة عالية جدًا." },
+
+    // وزارة الداخلية (نسائي)
+    { id:"MOI_GDP_F", group:"وزارة الداخلية (نسائي)", label:"الجوازات (نسائي)", gender:"F", cap:0.40, note:"أعمال مكتبية غالبًا." },
+    { id:"MOI_NARC_F",group:"وزارة الداخلية (نسائي)", label:"مكافحة المخدرات (نسائي)", gender:"F", cap:0.38, note:"تنظيم/مساندة غالبًا." },
+    { id:"MOI_BG_F",  group:"وزارة الداخلية (نسائي)", label:"حرس الحدود (نسائي)", gender:"F", cap:0.36, note:"حسب الشواغر." },
+    { id:"MOI_ENV_F", group:"وزارة الداخلية (نسائي)", label:"الأمن البيئي (نسائي)", gender:"F", cap:0.35, note:"فرص محدودة نسبيًا." },
+
+    // الحرس الوطني
+    { id:"NG_M", group:"الحرس الوطني (رجال)", label:"الحرس الوطني (رجال)", gender:"M", cap:0.52, note:"فرص جيدة حسب الدفعات." },
+    { id:"NG_F", group:"الحرس الوطني (نسائي)", label:"الحرس الوطني (نسائي)", gender:"F", cap:0.40, note:"أعمال مكتبية/مساندة غالبًا." }
+  ];
+
+  const el = (id)=>document.getElementById(id);
+  const byId = (id)=>SECTORS.find(s=>s.id===id);
+  const clamp=(n,a,b)=>Math.max(a, Math.min(b,n));
+
+  function gradeLabel(v){
+    if(!Number.isFinite(v)) return {t:"غير مدخل", cls:"warn", color:"#f59e0b"};
+    if(v < 60) return {t:"ضعيف", cls:"bad", color:"#ef4444"};
+    if(v < 65) return {t:"مقبول", cls:"warn", color:"#f59e0b"};
+    if(v < 75) return {t:"جيد", cls:"info", color:"#60a5fa"};
+    return {t:"ممتاز", cls:"good", color:"#22c55e"};
+  }
+  function gpaLabel(v){
+    if(!Number.isFinite(v)) return {t:"غير مدخل", cls:"warn", color:"#f59e0b"};
+    if(v < 75) return {t:"ضعيف", cls:"bad", color:"#ef4444"};
+    if(v < 85) return {t:"متوسط", cls:"warn", color:"#f59e0b"};
+    return {t:"قوي", cls:"good", color:"#22c55e"};
+  }
+  function yearLabel(y){
+    if(!Number.isFinite(y)) return {t:"غير مدخل", cls:"warn", old:false, color:"#f59e0b"};
+    const old = y <= MIN_OK_YEAR;
+    if(old) return {t:"قديم (أكثر من 5 سنوات)", cls:"bad", old:true, color:"#ef4444"};
+    if(y <= NOW_HIJRI-2) return {t:"متوسط", cls:"warn", old:false, color:"#f59e0b"};
+    return {t:"حديث", cls:"good", old:false, color:"#22c55e"};
+  }
+
+  function setChip(container, text, cls, dotColor){
+    const d = document.createElement("div");
+    d.className = `chip ${cls||""}`;
+    const dot = document.createElement("span");
+    dot.className = "cDot";
+    dot.style.background = dotColor || "#60a5fa";
+    const t = document.createElement("span");
+    t.textContent = text;
+    d.appendChild(dot); d.appendChild(t);
+    container.appendChild(d);
+  }
+
+  function buildWishOptions(){
+    const gender = el("gender").value;
+    const wishes = ["wish1","wish2","wish3"];
+    const prev = wishes.map(id=>el(id).value);
+
+    const groups = {};
+    SECTORS.filter(s=>s.gender===gender).forEach(s=>{
+      groups[s.group] = groups[s.group] || [];
+      groups[s.group].push(s);
+    });
+
+    wishes.forEach((wid, idx)=>{
+      const sel = el(wid);
+      const keep = prev[idx];
+      sel.innerHTML = "";
+
+      const opt0 = document.createElement("option");
+      opt0.value = "";
+      opt0.textContent = "اختر الرغبة";
+      sel.appendChild(opt0);
+
+      Object.keys(groups).forEach(g=>{
+        const og = document.createElement("optgroup");
+        og.label = g;
+        groups[g].forEach(s=>{
+          const o = document.createElement("option");
+          o.value = s.id;
+          o.textContent = s.label;
+          og.appendChild(o);
+        });
+        sel.appendChild(og);
+      });
+
+      if(keep && byId(keep) && byId(keep).gender===gender) sel.value = keep;
+      else sel.value = "";
+    });
+
+    // منع التكرار
+    wishes.forEach(wid=>{
+      el(wid).onchange = ()=>{
+        const v = el(wid).value;
+        if(!v) return;
+        const vals = wishes.map(x=>el(x).value).filter(Boolean);
+        const dup = vals.filter(x=>x===v).length > 1;
+        if(dup){
+          alert("لا يمكن تكرار نفس الرغبة أكثر من مرة.");
+          el(wid).value = "";
+        }
+      };
+    });
+  }
+
+  function uniqueWishes(){
+    const ids = [el("wish1").value, el("wish2").value, el("wish3").value].filter(Boolean);
+    return [...new Set(ids)];
+  }
+
+  function calcScoreBreakdown(){
+    const gpa = parseFloat(el("gpa").value);
+    const q = parseFloat(el("qudrat").value);
+    const t = parseFloat(el("tahsili").value);
+    const step = parseFloat(el("step").value);
+    const gy = parseInt(el("gradYear").value, 10);
+
+    const hasCourses = el("hasCourses").value === "yes";
+    const hasHigher  = el("hasHigher").value === "yes";
+    const gender = el("gender").value;
+
+    const gN = Number.isFinite(gpa) ? clamp(gpa/100,0,1) : 0;
+    const qN = Number.isFinite(q)   ? clamp(q/100,0,1)   : 0;
+    const tN = Number.isFinite(t)   ? clamp(t/100,0,1)   : 0;
+    const sN = Number.isFinite(step)? clamp(step/100,0,1): 0;
+
+    // أوزان واضحة (تقديرية للتوعية)
+    let yearPts = 0;
+    if(Number.isFinite(gy)){
+      if(gy >= NOW_HIJRI-1) yearPts = 10;
+      else if(gy >= NOW_HIJRI-2) yearPts = 8;
+      else if(gy >= NOW_HIJRI-4) yearPts = 6;
+      else yearPts = 2;
+    }
+
+    const parts = [
+      {k:"المعدل",     pts: Number.isFinite(gpa) ? (gN*48) : 0, max:48},
+      {k:"القدرات",    pts: Number.isFinite(q)   ? (qN*18) : 0, max:18},
+      {k:"التحصيلي",   pts: Number.isFinite(t)   ? (tN*18) : 0, max:18},
+      {k:"سنة التخرج", pts: yearPts, max:10},
+      {k:"STEP",       pts: (Number.isFinite(step)&&step>0) ? (sN*6) : 0, max:6},
+      {k:"الدورات",    pts: hasCourses ? 5 : 0, max:5},
+      {k:"مؤهل أعلى",  pts: hasHigher ? 3 : 0, max:3},
+    ];
+
+    let penalty = 0;
+    if(!Number.isFinite(gpa)) penalty += 8;
+    if(!Number.isFinite(q)) penalty += 4;
+    if(!Number.isFinite(t)) penalty += 4;
+    if(!Number.isFinite(gy)) penalty += 6;
+
+    let base = parts.reduce((a,p)=>a+p.pts,0) - penalty;
+    base = clamp(base, 0, 100);
+
+    // تعديل حسب الرغبات (سعة تقديرية)
+    const ids = uniqueWishes();
+    const chosen = ids.map(byId).filter(Boolean);
+
+    let sectorAdj = 0;
+    let sectorLines = [];
+    if(chosen.length){
+      const avgCap = chosen.reduce((a,s)=>a+(s.cap||0.45),0)/chosen.length;
+      sectorAdj = clamp(((avgCap - 0.50)/0.22)*6, -8, 8);
+      if(chosen.some(s=>s.id==="MOI_GIP_M")) sectorAdj -= 4;
+
+      sectorLines = chosen.map((s,i)=>{
+        const r = i===0?"الأولى":(i===1?"الثانية":"الثالثة");
+        let diff = "متوازن";
+        if(s.cap >= 0.62) diff = "فرص أعلى عادةً";
+        else if(s.cap >= 0.50) diff = "فرص جيدة";
+        else if(s.cap >= 0.40) diff = "منافسة مرتفعة";
+        else diff = "منافسة شديدة";
+        return `الرغبة ${r}: ${s.label} — ${diff}. ${s.note || ""}`;
+      });
+    } else {
+      sectorLines = ["لم يتم اختيار رغبات بعد. اختر 1-3 رغبات لزيادة دقة التحليل."];
+    }
+
+    let finalScore = clamp(base + sectorAdj, 0, 100);
+
+    const tier =
+      finalScore>=80 ? "منافس قوي جدًا" :
+      finalScore>=70 ? "منافس جيد" :
+      finalScore>=60 ? "منافس متوسط" :
+      "منافس ضعيف حاليًا";
+
+    const sortable = parts
+      .map(p=>({k:p.k, ratio: p.max? (p.pts/p.max):0, pts:p.pts, max:p.max}))
+      .sort((a,b)=>b.ratio-a.ratio);
+    const best = sortable[0]?.k || "—";
+    const worst = sortable[sortable.length-1]?.k || "—";
+
+    const focus = byId(el("wish1").value);
+
+    return { gender,gpa,q,t,step,gy, hasCourses,hasHigher, parts, penalty, base, sectorAdj, finalScore, tier, best, worst, sectorLines, focus };
+  }
+
+  function tierStyle(score){
+    if(score>=80) return {cls:"good", dot:"#22c55e"};
+    if(score>=70) return {cls:"info", dot:"#60a5fa"};
+    if(score>=60) return {cls:"warn", dot:"#f59e0b"};
+    return {cls:"bad", dot:"#ef4444"};
+  }
+
+  function buildReasons(r){
+    const reasons = [];
+    reasons.push(`النقاط الأساسية (قبل تعديل الرغبات): ${Math.round(r.base)} / 100.`);
+    if(r.sectorAdj !== 0){
+      const sign = r.sectorAdj>0?"+":"";
+      reasons.push(`تعديل الرغبات (حسب سعة/منافسة تقديرية): ${sign}${r.sectorAdj.toFixed(1)} نقطة.`);
+    } else {
+      reasons.push(`تعديل الرغبات: 0 (متوازن/غير محدد).`);
+    }
+    if(r.penalty>0) reasons.push(`خصم بسبب بيانات ناقصة/غير مدخلة: -${r.penalty} نقطة.`);
+
+    r.parts.forEach(p=>{
+      reasons.push(`${p.k}: ${p.pts.toFixed(1)} من ${p.max}.`);
+    });
+
+    const y = yearLabel(r.gy);
+    if(y.old){
+      reasons.push(`تنبيه سنة التخرج: ${r.gy} تعتبر قديمة (أكثر من 5 سنوات) في سنة ${NOW_HIJRI} وقد تقل فرصك في قطاعات كثيرة.`);
+    }
+    if(r.focus && r.focus.id==="MOI_GIP_M"){
+      reasons.push(`تنبيه الرغبة الأولى (المباحث العامة): قطاع انتقائي جدًا؛ غالبًا يتطلب ملف أعلى من المتوسط.`);
+    }
+    return reasons;
+  }
+
+  function buildWeaknesses(r){
+    const out = [];
+    const y = yearLabel(r.gy);
+
+    if(y.old) out.push(`سنة التخرج قديمة (${r.gy}) — في سنة ${NOW_HIJRI} كثير من القطاعات غالبًا تفضّل/تشترط حد أقصى ${MAX_YEARS} سنوات (تقريبًا ${MIN_OK_YEAR+1} فأعلى).`);
+
+    if(Number.isFinite(r.gpa) && r.gpa < 75) out.push(`المعدل منخفض (${r.gpa}). هذا عامل قوي في ترتيب المفاضلة.`);
+    else if(Number.isFinite(r.gpa) && r.gpa < 85) out.push(`المعدل متوسط (${r.gpa}). تحتاج دعم قوي في الاختبارات/الدورات.`);
+    else if(!Number.isFinite(r.gpa)) out.push(`المعدل غير مدخل.`);
+
+    if(Number.isFinite(r.q) && r.q < 60) out.push(`القدرات ضعيفة (${r.q}).`);
+    else if(Number.isFinite(r.q) && r.q < 65) out.push(`القدرات مقبولة فقط (${r.q}) — رفعها فوق 65 يصنع فرق.`);
+    else if(!Number.isFinite(r.q)) out.push(`القدرات غير مدخلة.`);
+
+    if(Number.isFinite(r.t) && r.t < 60) out.push(`التحصيلي ضعيف (${r.t}).`);
+    else if(Number.isFinite(r.t) && r.t < 65) out.push(`التحصيلي مقبول فقط (${r.t}) — رفعه فوق 65 يصنع فرق.`);
+    else if(!Number.isFinite(r.t)) out.push(`التحصيلي غير مدخل.`);
+
+    if(!Number.isFinite(r.step) || r.step===0) out.push(`لا يوجد STEP — وجوده بدرجة قوية يزيد التنافسية خصوصًا للأعمال المكتبية/اللغات.`);
+    else if(r.step < 65) out.push(`STEP منخفض (${r.step}) — رفعه يعطي دفعة.`);
+
+    if(!r.hasCourses) out.push(`لا توجد دورات — عند تقارب المنافسين الدورات قد تكون الفاصل.`);
+    if(!r.hasHigher) out.push(`لا يوجد مؤهل أعلى — إذا عندك مؤهل أعلى وينطبق على الإعلان، وجوده ميزة.`);
+
+    if(r.gender==="F") out.push(`للنساء: كثير من الفرص تكون مكتبية/إدارية؛ دورات إدخال بيانات/Excel/إدارة مكتبية تفيدك بقوة.`);
+
+    if(r.focus && r.focus.cap <= 0.40) out.push(`الرغبة الأولى منافسة مرتفعة جدًا — قد تحتاج ملف أعلى من المتوسط.`);
+    return out.length ? out : ["لا توجد نقاط ضعف حرجة واضحة — ملفك قوي حاليًا."];
+  }
+
+  function buildActions(r){
+    const actions = [];
+    const score = r.finalScore;
+
+    if(score < 60){
+      actions.push(`خطة إنقاذ سريعة: ارفع عنصرين رئيسيين خلال أقرب دورة (اختبار + دورات).`);
+      actions.push(`الأولوية: القدرات إلى 65+ ثم 75+، والتحصيلي إلى 65+ ثم 75+.`);
+      actions.push(`أضف دورة أو دورتين مكتبية معروفة (إدخال بيانات + Excel) لرفع التنافسية.`);
+    } else if(score < 70){
+      actions.push(`أنت “متوسط”: ركّز على رفع اختبار واحد إلى مستوى ممتاز + إضافة دورات معتمدة.`);
+      actions.push(`إذا المعدل متوسط: الاختبارات والدورات هي اللي تعطيك قفزة واضحة.`);
+    } else if(score < 80){
+      actions.push(`أنت “جيد”: سد ثغرة واحدة واضحة (اختبار/دورات/سنة تخرج) لتصير منافس قوي.`);
+      actions.push(`اختر رغبات ذكية: خلي رغبة من سعة أعلى لو هدفك قبول أسرع.`);
+    } else {
+      actions.push(`أنت “قوي جدًا”: حافظ على المستوى + راجع الرغبات + جهز ملف التقديم بدقة.`);
+      actions.push(`لو تبغى ترفع احتمالك أكثر: حوّل نقطة واحدة فقط إلى “ممتاز” لو كانت أقل من ذلك.`);
+    }
+
+    const y = yearLabel(r.gy);
+    if(y.old){
+      actions.push(`تنبيه سنة التخرج: كثير من القطاعات تحدد حد أقصى (5 سنوات). لو هدفك قطاعات تشترط حديث التخرج، راجع الإجراءات الرسمية المعتمدة لتحديث بيانات التخرج حسب الأنظمة.`);
+    }
+
+    if(!Number.isFinite(r.q) || r.q < 65) actions.push(`القدرات: سجّل عبر قياس واشتغل نماذج يومية + تحليل أخطاء. هدف 65+ ثم 75+.`);
+    if(!Number.isFinite(r.t) || r.t < 65) actions.push(`التحصيلي: نماذج + مراجعة مركزة. هدف 65+ ثم 75+.`);
+    if(!Number.isFinite(r.step) || r.step===0) actions.push(`STEP: إدخاله بدرجة 75+ يعطي دفعة قوية خاصة للأعمال المكتبية/اللغات.`);
+    if(!r.hasCourses){
+      if(r.gender==="F") actions.push(`الدورات المقترحة (نسائي): إدخال بيانات + Excel + إدارة مكتبية + كتابة تقارير.`);
+      else actions.push(`الدورات المقترحة: إدخال بيانات + Excel/Office + أساسيات الحاسب.`);
+    }
+
+    if(r.focus){
+      if(r.focus.id==="MOI_GIP_M") actions.push(`المباحث (إن كانت رغبتك الأولى): ارفع الملف إلى مستوى “قوي جدًا” (معدل قوي + اختبارات 75+ + سنة حديثة قدر الإمكان).`);
+      if(r.focus.id==="MOD_LAND_M") actions.push(`البرية: عادة سعتها أعلى، ركّز على توازن قوي بدل عنصر واحد فقط.`);
+      if(r.focus.id==="MOD_AIR_M") actions.push(`الجوية: المنافسة أعلى عادةً، لازم الاختبارات تكون قوية.`);
+    }
+
+    actions.push(`قبل التقديم: راجع البيانات حرفيًا وتأكد التطابق 100% مع الوثائق.`);
+    return actions;
+  }
+
+  function buildSectorLines(r){
+    const ids = uniqueWishes();
+    if(!ids.length) return r.sectorLines;
+    const chosen = ids.map(byId).filter(Boolean);
+    const rec = [...chosen].sort((a,b)=>(b.cap||0)-(a.cap||0));
+    const recTxt = `اقتراح ترتيب يرفع فرصة القبول أسرع (تقديري): ${rec.map(s=>s.label).join(" ← ")}.`;
+    return [...r.sectorLines, recTxt];
+  }
+
+  function buildReportText(r, reasons, weaknesses, actions, sectorLines){
+    const genderTxt = r.gender==="M"?"ذكر":"أنثى";
+    const wishes = uniqueWishes().map(id=>byId(id)?.label).filter(Boolean);
+
+    return [
+      "تقرير مؤشر القبول العسكري الذكي (غير رسمي)",
+      "تابع لحساب: https://x.com/tasjil25 (غير تابع لأي جهة رسمية)",
+      `التاريخ: ${new Date().toLocaleString("ar-SA")}`,
+      "",
+      `النتيجة: ${Math.round(r.finalScore)}/100 — ${r.tier}`,
+      `الجنس: ${genderTxt}`,
+      `سنة التخرج: ${r.gy}`,
+      `المعدل: ${Number.isFinite(r.gpa)?r.gpa:"—"}`,
+      `القدرات: ${Number.isFinite(r.q)?r.q:"—"}`,
+      `التحصيلي: ${Number.isFinite(r.t)?r.t:"—"}`,
+      `STEP: ${(Number.isFinite(r.step)&&r.step>0)?r.step:"—"}`,
+      `دورات: ${r.hasCourses?"نعم":"لا"}`,
+      `مؤهل أعلى: ${r.hasHigher?"نعم":"لا"}`,
+      "",
+      "الرغبات:",
+      wishes.length ? wishes.map(w=>`- ${w}`).join("\n") : "- —",
+      "",
+      "لماذا ارتفعت/انخفضت النسبة؟",
+      reasons.map(x=>`- ${x}`).join("\n"),
+      "",
+      "نقاط ضعف حرجة:",
+      weaknesses.map(x=>`- ${x}`).join("\n"),
+      "",
+      "حلول وتحسينات قوية:",
+      actions.map(x=>`- ${x}`).join("\n"),
+      "",
+      "تحليل حسب الرغبات:",
+      sectorLines.map(x=>`- ${x}`).join("\n"),
+      "",
+      "روابط مفيدة:",
+      "- قياس: https://etec.gov.sa/ar/centers/qiyas/p/p-7d1870ff-a881-4e9a-9f9d-8f2a2c4df032",
+      "- X: https://x.com/tasjil25"
+    ].join("\n");
+  }
+
+  function buildPdfHtml(r, reasons, weaknesses, actions, sectorLines){
+    const genderTxt = r.gender==="M"?"ذكر":"أنثى";
+    const wishes = uniqueWishes().map(id=>byId(id)?.label).filter(Boolean);
+
+    const yL = yearLabel(r.gy).t;
+    const gL = gpaLabel(r.gpa).t;
+    const qL = gradeLabel(r.q).t;
+    const tL = gradeLabel(r.t).t;
+    const sL = (Number.isFinite(r.step)&&r.step>0) ? gradeLabel(r.step).t : "—";
+
+    return `
+      <div class="pdfHeader">
+        <div>
+          <h2 class="pdfH1">تقرير مؤشر القبول العسكري الذكي (غير رسمي)</h2>
+          <div class="pdfMeta">
+            تابع لحساب: <b>@tasjil25</b> — https://x.com/tasjil25<br>
+            تنويه: هذا التقرير للتوعية فقط والموقع غير تابع لأي جهة رسمية.
+          </div>
+        </div>
+        <div class="pdfBadge">التاريخ: ${new Date().toLocaleString("ar-SA")}</div>
+      </div>
+
+      <div class="pdfHr"></div>
+
+      <div class="pdfKpis">
+        <div class="pdfKpi"><div class="t">النتيجة النهائية</div><div class="v">${Math.round(r.finalScore)}/100</div></div>
+        <div class="pdfKpi"><div class="t">التقييم العام</div><div class="v">${r.tier}</div></div>
+        <div class="pdfKpi"><div class="t">الرغبة الأولى</div><div class="v">${r.focus ? r.focus.label : "—"}</div></div>
+      </div>
+
+      <div class="pdfSec">
+        <div class="pdfSecTitle">ملخص البيانات</div>
+        <div class="pdfMeta">
+          الجنس: <b>${genderTxt}</b> |
+          سنة التخرج: <b>${r.gy}</b> (${yL}) |
+          المعدل: <b>${Number.isFinite(r.gpa)?r.gpa:"—"}</b> (${gL})<br>
+          القدرات: <b>${Number.isFinite(r.q)?r.q:"—"}</b> (${qL}) |
+          التحصيلي: <b>${Number.isFinite(r.t)?r.t:"—"}</b> (${tL}) |
+          STEP: <b>${(Number.isFinite(r.step)&&r.step>0)?r.step:"—"}</b> (${sL})<br>
+          الدورات: <b>${r.hasCourses?"نعم":"لا"}</b> |
+          مؤهل أعلى: <b>${r.hasHigher?"نعم":"لا"}</b>
+        </div>
+      </div>
+
+      <div class="pdfHr"></div>
+
+      <div class="pdfSec">
+        <div class="pdfSecTitle">الرغبات</div>
+        <ul class="pdfList">
+          ${wishes.length ? wishes.map(w=>`<li>${w}</li>`).join("") : "<li>—</li>"}
+        </ul>
+      </div>
+
+      <div class="pdfSec">
+        <div class="pdfSecTitle">تفكيك النتيجة</div>
+        <ul class="pdfList">${reasons.slice(0,18).map(x=>`<li>${x}</li>`).join("")}</ul>
+      </div>
+
+      <div class="pdfSec">
+        <div class="pdfSecTitle">نقاط ضعف حرجة</div>
+        <ul class="pdfList">${weaknesses.slice(0,16).map(x=>`<li>${x}</li>`).join("")}</ul>
+      </div>
+
+      <div class="pdfSec">
+        <div class="pdfSecTitle">حلول وتحسينات قوية</div>
+        <ul class="pdfList">${actions.slice(0,18).map(x=>`<li>${x}</li>`).join("")}</ul>
+      </div>
+
+      <div class="pdfSec">
+        <div class="pdfSecTitle">تحليل حسب الرغبات</div>
+        <ul class="pdfList">${sectorLines.slice(0,12).map(x=>`<li>${x}</li>`).join("")}</ul>
+      </div>
+
+      <div class="pdfNote">
+        روابط مفيدة:<br>
+        • قياس: https://etec.gov.sa/ar/centers/qiyas/p/p-7d1870ff-a881-4e9a-9f9d-8f2a2c4df032<br>
+        • X: https://x.com/tasjil25
+      </div>
+    `;
+  }
+
+  async function downloadPdf(){
+    if(!window.__LAST__) { alert("اعرض التحليل أولًا ثم حمّل التقرير."); return; }
+    const {r,reasons,weaknesses,actions,sectorLines} = window.__LAST__;
+
+    const stage = el("pdfStage");
+    stage.innerHTML = buildPdfHtml(r, reasons, weaknesses, actions, sectorLines);
+
+    // iOS/Android: انتظر فريمين عشان يثبت الرندر
+    await new Promise(res=>requestAnimationFrame(()=>requestAnimationFrame(res)));
+
+    const opt = {
+      margin: 0.35,
+      filename: 'تقرير-مؤشر-القبول-العسكري.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(stage).save();
+  }
+
+  function plan30(r){
+    const lines = [];
+    lines.push("خطة تحسين 30 يوم (مختصرة وقوية):");
+    lines.push("الأسبوع 1: تحديد أضعف عنصر + نماذج يومية + تحليل أخطاء.");
+    if(!Number.isFinite(r.q) || r.q < 65) lines.push("- القدرات: هدف 65+ ثم 75+. سجل عبر قياس وابدأ نماذج ثابتة.");
+    if(!Number.isFinite(r.t) || r.t < 65) lines.push("- التحصيلي: هدف 65+ ثم 75+. نماذج + مراجعة أخطاء.");
+    if(!r.hasCourses) lines.push("- الدورات: إدخال بيانات + Excel + إدارة مكتبية (يفضل معروفة/معتمدة).");
+    if((!Number.isFinite(r.step) || r.step===0) && r.gender==="F") lines.push("- STEP للنساء: رفع 75+ يعطي دفعة قوية.");
+    lines.push("الأسبوع 2: رفع المستوى التجريبي + سد الثغرات الأكثر تكرارًا.");
+    lines.push("الأسبوع 3: اختبارات تجريبية أسبوعية + مراجعة مركزة.");
+    lines.push("الأسبوع 4: تثبيت الأداء + تجهيز الملف النهائي للتقديم بدقة.");
+    if(yearLabel(r.gy).old) lines.push(`تنبيه: سنة التخرج ${r.gy} قد تُعتبر قديمة في سنة ${NOW_HIJRI} (أكثر من 5 سنوات).`);
+    lines.push("");
+    lines.push("روابط:");
+    lines.push("قياس: https://etec.gov.sa/ar/centers/qiyas/p/p-7d1870ff-a881-4e9a-9f9d-8f2a2c4df032");
+    lines.push("X: https://x.com/tasjil25");
+    return lines.join("\n");
+  }
+
+  async function copyText(txt){
+    try{
+      await navigator.clipboard.writeText(txt);
+      alert("تم النسخ.");
+    }catch(e){
+      prompt("انسخ النص:", txt);
+    }
+  }
+
+  function softReset(msg){
+    el("scoreText").textContent = "— / 100";
+    el("scoreFill").style.width = "0%";
+    el("chips").innerHTML = "";
+    el("tierText").textContent = "—";
+    el("bestFactor").textContent = "—";
+    el("worstFactor").textContent = "—";
+
+    el("summaryBox").innerHTML = `<h4>ملخص رسمي مختصر</h4><div class="mutedText">${msg||"اكتب البيانات ثم اعرض التحليل."}</div>`;
+    el("reasonList").innerHTML = `<li class="mutedText">—</li>`;
+    el("weakList").innerHTML = `<li class="mutedText">—</li>`;
+    el("actionList").innerHTML = `<li class="mutedText">—</li>`;
+    el("sectorList").innerHTML = `<li class="mutedText">—</li>`;
+
+    el("pdfBtn").disabled = true;
+    el("copyPlanBtn").disabled = true;
+    el("copyReportBtn").disabled = true;
+
+    el("pdfStage").innerHTML = "";
+    window.__LAST__ = null;
+  }
+
+  function resetAll(){
+    el("gender").value = "M";
+    el("gradYear").value = NOW_HIJRI;
+    el("gpa").value = "";
+    el("qudrat").value = "";
+    el("tahsili").value = "";
+    el("step").value = "";
+    el("hasCourses").value = "no";
+    el("hasHigher").value = "no";
+    buildWishOptions();
+    softReset("تم مسح البيانات.");
+  }
+
+  function render(){
+    const r = calcScoreBreakdown();
+
+    el("scoreText").textContent = `${Math.round(r.finalScore)} / 100`;
+    el("scoreFill").style.width = `${r.finalScore}%`;
+
+    el("tierText").textContent = r.tier;
+    el("bestFactor").textContent = r.best || "—";
+    el("worstFactor").textContent = r.worst || "—";
+
+    const chips = el("chips");
+    chips.innerHTML = "";
+
+    const ty = tierStyle(r.finalScore);
+    setChip(chips, `التقييم: ${r.tier}`, ty.cls, ty.dot);
+
+    const yT = yearLabel(r.gy);
+    const gT = gpaLabel(r.gpa);
+    const qT = gradeLabel(r.q);
+    const tT = gradeLabel(r.t);
+    const sT = (Number.isFinite(r.step)&&r.step>0) ? gradeLabel(r.step) : {t:"—", cls:"warn", color:"#f59e0b"};
+
+    setChip(chips, `الجنس: ${r.gender==="M"?"ذكر":"أنثى"}`, "info", "#60a5fa");
+    setChip(chips, `سنة التخرج: ${r.gy} (${yT.t})`, yT.cls, yT.color);
+    setChip(chips, `المعدل: ${Number.isFinite(r.gpa)?r.gpa:"—"} (${gT.t})`, gT.cls, gT.color);
+    setChip(chips, `القدرات: ${Number.isFinite(r.q)?r.q:"—"} (${qT.t})`, qT.cls, qT.color);
+    setChip(chips, `التحصيلي: ${Number.isFinite(r.t)?r.t:"—"} (${tT.t})`, tT.cls, tT.color);
+    setChip(chips, `STEP: ${(Number.isFinite(r.step)&&r.step>0)?r.step:"غير موجود"} (${sT.t})`, (Number.isFinite(r.step)&&r.step>0)?sT.cls:"warn", "#60a5fa");
+    setChip(chips, `دورات: ${r.hasCourses?"نعم":"لا"}`, r.hasCourses?"good":"warn", r.hasCourses?"#22c55e":"#f59e0b");
+    setChip(chips, `مؤهل أعلى: ${r.hasHigher?"نعم":"لا"}`, r.hasHigher?"good":"warn", r.hasHigher?"#22c55e":"#f59e0b");
+    setChip(chips, `الرغبة الأولى: ${r.focus ? r.focus.label : "—"}`, "info", "#60a5fa");
+
+    const reasons = buildReasons(r);
+    const weaknesses = buildWeaknesses(r);
+    const actions = buildActions(r);
+    const sectorLines = buildSectorLines(r);
+
+    el("summaryBox").innerHTML = `
+      <h4>ملخص رسمي مختصر</h4>
+      <div style="font-weight:950;line-height:1.85">
+        نتيجتك: <b>${Math.round(r.finalScore)}/100</b> — <b>${r.tier}</b><br>
+        ${r.focus ? `تركيز الرغبة الأولى: <b>${r.focus.label}</b><br>` : ""}
+        <span class="mutedText tiny">التقييم تقديري للتوعية فقط.</span>
+      </div>
+    `;
+
+    el("reasonList").innerHTML = reasons.map(x=>`<li>${x}</li>`).join("");
+    el("weakList").innerHTML = weaknesses.map(x=>`<li>${x}</li>`).join("");
+    el("actionList").innerHTML = actions.map(x=>`<li>${x}</li>`).join("");
+    el("sectorList").innerHTML = sectorLines.map(x=>`<li>${x}</li>`).join("");
+
+    // جهّز pdfStage مباشرة بعد التحليل
+    el("pdfStage").innerHTML = buildPdfHtml(r, reasons, weaknesses, actions, sectorLines);
+
+    el("pdfBtn").disabled = false;
+    el("copyPlanBtn").disabled = false;
+    el("copyReportBtn").disabled = false;
+
+    window.__LAST__ = { r, reasons, weaknesses, actions, sectorLines };
+  }
+
+  // Events
+  el("gender").addEventListener("change", ()=>{
+    buildWishOptions();
+    softReset("تم تغيير الجنس — اختر الرغبات ثم اعرض التحليل.");
+  });
+
+  el("analyzeBtn").addEventListener("click", ()=>{
+    const gy = parseInt(el("gradYear").value,10);
+    const gpa = parseFloat(el("gpa").value);
+
+    if(!Number.isFinite(gy) || gy < 1390 || gy > 1500){
+      alert("اكتب سنة تخرج صحيحة (هجري).");
+      return;
+    }
+    if(!Number.isFinite(gpa) || gpa <= 0 || gpa > 100){
+      alert("اكتب المعدل بشكل صحيح (من 100).");
+      return;
+    }
+    render();
+  });
+
+  el("pdfBtn").addEventListener("click", downloadPdf);
+
+  el("copyPlanBtn").addEventListener("click", ()=>{
+    if(!window.__LAST__) return;
+    copyText(plan30(window.__LAST__.r));
+  });
+
+  el("copyReportBtn").addEventListener("click", ()=>{
+    if(!window.__LAST__) return;
+    const {r,reasons,weaknesses,actions,sectorLines} = window.__LAST__;
+    copyText(buildReportText(r,reasons,weaknesses,actions,sectorLines));
+  });
+
+  el("demoBtn").addEventListener("click", ()=>{
+    el("gender").value = "M";
+    el("gradYear").value = 1440;
+    el("gpa").value = 77;
+    el("qudrat").value = 58;
+    el("tahsili").value = 61;
+    el("step").value = "";
+    el("hasCourses").value = "no";
+    el("hasHigher").value = "no";
+    buildWishOptions();
+    el("wish1").value = "MOI_GIP_M";
+    el("wish2").value = "MOD_AIR_M";
+    el("wish3").value = "MOD_LAND_M";
+    softReset("جاهز — اضغط عرض التحليل العميق.");
+  });
+
+  el("resetBtn").addEventListener("click", ()=>{
+    if(confirm("متأكد تبغى تمسح كل البيانات؟")) resetAll();
+  });
+
+  // Init
+  buildWishOptions();
+  softReset("اكتب البيانات ثم اضغط “عرض التحليل العميق”.");
+</script>
+</body>
+</html>
