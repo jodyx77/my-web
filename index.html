@@ -1524,13 +1524,20 @@ html[dir="rtl"] .ai-panel{
     تنبيه: مساعد إرشادي غير تابع لأي جهة رسمية — يعتمد على معلومات عامة وقد تختلف الشروط حسب الإعلان الرسمي.
   </div>
 
-  <div class="ai-foot">
-    <textarea class="ai-input" id="aiInput" placeholder="اكتب سؤالك… مثال: كيف أرفع القدرات؟ وش أفضل دورات تقوّي ملفي؟" rows="1"></textarea>
+<div class="ai-foot" dir="rtl">
+  <label class="ai-label" for="aiInput">اكتب سؤالك هنا</label>
+
+  <div class="ai-compose">
+    <textarea
+      class="ai-input"
+      id="aiInput"
+      placeholder="اكتب سؤالك… مثال: كيف أرفع القدرات؟ وش أفضل دورات تقوّي ملفي؟"
+      rows="3"
+    ></textarea>
+
     <button class="ai-send" id="aiSend" type="button">إرسال</button>
   </div>
 </div>
-
-<div class="ai-fab">
   <button class="ai-btn" id="aiOpen" type="button">💬 مساعد القبول</button>
 </div>
 
@@ -1670,6 +1677,7 @@ html[dir="rtl"] .ai-panel{
 </body>
 
 </html>
+
 
 
 
